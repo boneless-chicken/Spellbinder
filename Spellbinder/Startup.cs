@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Spellbinder.Business;
 using Spellbinder.Models.Configuration;
+using Spellbinder.Services.Elysium;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IO;
@@ -49,6 +51,9 @@ namespace Spellbinder
             services.AddOptions();
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
+            services.AddTransient<IElysiumService, ElysiumService>();
+            services.AddHttpClient<IElysiumService, ElysiumService>();
+            services.AddTransient<IElysiumBusiness, ElysiumBusiness>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

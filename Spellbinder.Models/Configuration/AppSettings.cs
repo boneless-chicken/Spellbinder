@@ -6,5 +6,6 @@ namespace Spellbinder.Models.Configuration
 {
     public class AppSettings
     {
+        public ElysiumConfig ElysiumConfig { get; set; }
     }
 }

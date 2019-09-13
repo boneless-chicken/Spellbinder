@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Spellbinder.Models;
+﻿using Spellbinder.Models;
 using Spellbinder.Services.Elysium;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Spellbinder.Business
 {

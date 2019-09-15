@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Spellbinder.Business;
+using Spellbinder.Models;
 using System.Threading.Tasks;
 
 namespace Spellbinder.Controllers
@@ -15,10 +16,16 @@ namespace Spellbinder.Controllers
             _elysiumBusiness = elysiumBusiness;
         }
         
-        [HttpGet("/Characters/{id}")]
-        public async Task<ActionResult> GetCharacters(string id)
+        [HttpGet("/Characters/{uid}")]
+        public async Task<ActionResult> GetCharacters(string uid)
         {
-            return Ok(await _elysiumBusiness.GetCharacters(id));
+            return Ok(await _elysiumBusiness.GetCharacters(uid));
+        }
+
+        [HttpPost("/CreateUser")]
+        public async Task<ActionResult> CreateUser(User user)
+        {
+            return Ok(await _elysiumBusiness.CreateUser(user));
         }
     }
 }

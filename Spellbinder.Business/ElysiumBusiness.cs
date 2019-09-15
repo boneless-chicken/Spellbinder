@@ -1,4 +1,5 @@
 ﻿using Spellbinder.Models;
+using Spellbinder.Models.Reponse;
 using Spellbinder.Services.Elysium;
 using System;
 using System.Collections.Generic;
@@ -15,14 +16,21 @@ namespace Spellbinder.Business
             _elysiumService = elysiumService;
         }
 
-        public async Task<List<Character>> GetCharacters(string id)
+        public async Task<LoginResponse> GetCharacters(string id)
         {
+            LoginResponse loginResponse = new LoginResponse();
             var player = await _elysiumService.GetUser(id);
-            List<Character> characters = new List<Character>();
+            loginResponse.User = player;
             foreach (string s in player.CharacterList) {
-                characters.Add(await _elysiumService.GetCharacter(s));
+                loginResponse.Characters.Add(await _elysiumService.GetCharacter(s));
             }
-            return characters;
+            return loginResponse;
+        }
+
+        public async Task<User> CreateUser(User user)
+        {
+            var player = await _elysiumService.CreateUser(user);
+            return player;
         }
     }
 }

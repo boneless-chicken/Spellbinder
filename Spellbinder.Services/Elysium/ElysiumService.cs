@@ -4,6 +4,7 @@ using Spellbinder.Models;
 using Spellbinder.Models.Configuration;
 using System;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Spellbinder.Services.Elysium
@@ -19,10 +20,19 @@ namespace Spellbinder.Services.Elysium
             _elysiumConfig = configuration.Value.ElysiumConfig;
         }
 
-        public async Task<User> GetUser(string id)
+        public async Task<User> GetUser(string uid)
         {
-            var uri = _elysiumConfig.BaseAddress + _elysiumConfig.Users + "/" + id;
+            var uri = _elysiumConfig.BaseAddress + _elysiumConfig.Users + "/" + uid;
             var responseString = await _httpClient.GetStringAsync(uri);
+            return JsonConvert.DeserializeObject<User>(responseString);
+        }
+
+        public async Task<User> CreateUser(User user)
+        {
+            var uri = _elysiumConfig.BaseAddress + _elysiumConfig.Users;
+            var jsonInString = JsonConvert.SerializeObject(user);
+            var response = await _httpClient.PostAsync(uri, new StringContent(jsonInString, Encoding.UTF8, "application/json"));
+            var responseString = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<User>(responseString);
         }
 

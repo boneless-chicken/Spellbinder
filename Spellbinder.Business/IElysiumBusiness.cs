@@ -1,11 +1,12 @@
 ﻿using Spellbinder.Models;
-using System.Collections.Generic;
+using Spellbinder.Models.Reponse;
 using System.Threading.Tasks;
 
 namespace Spellbinder.Business
 {
     public interface IElysiumBusiness
     {
-        Task<List<Character>> GetCharacters(string id);
+        Task<LoginResponse> GetCharacters(string id);
+        Task<User> CreateUser(User user);
     }
 }

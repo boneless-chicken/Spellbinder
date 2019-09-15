@@ -15,14 +15,13 @@ namespace Spellbinder.Business
             _elysiumService = elysiumService;
         }
 
-        public async Task<IEnumerable<Character>> GetCharacters(string id)
+        public async Task<List<Character>> GetCharacters(string id)
         {
             var player = await _elysiumService.GetUser(id);
             List<Character> characters = new List<Character>();
-            player.CharacterList.ForEach(async c =>
-            {
-                characters.Add(await _elysiumService.GetCharacter(c));
-            });
+            foreach (string s in player.CharacterList) {
+                characters.Add(await _elysiumService.GetCharacter(s));
+            }
             return characters;
         }
     }

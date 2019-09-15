@@ -6,6 +6,6 @@ namespace Spellbinder.Business
 {
     public interface IElysiumBusiness
     {
-        Task<IEnumerable<Character>> GetCharacters(string id);
+        Task<List<Character>> GetCharacters(string id);
     }
 }

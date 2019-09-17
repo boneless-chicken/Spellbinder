@@ -11,7 +11,7 @@ namespace Spellbinder.Models.Configuration
         public string Character { get; set; }
         public string Class { get; set; }
         public string Morality { get; set; }
-        public string Users { get; set; }
+        public string User { get; set; }
         public string PrimaryStats { get; set; }
         public string Race { get; set; }
     }

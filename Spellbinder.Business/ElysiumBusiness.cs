@@ -1,8 +1,6 @@
-﻿using Spellbinder.Models;
+﻿using Elysium.Models.User;
 using Spellbinder.Models.Reponse;
 using Spellbinder.Services.Elysium;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Spellbinder.Business

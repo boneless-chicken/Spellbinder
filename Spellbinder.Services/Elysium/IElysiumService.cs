@@ -1,4 +1,5 @@
-﻿using Spellbinder.Models;
+﻿using Elysium.Models.Player;
+using Elysium.Models.User;
 using System.Threading.Tasks;
 
 namespace Spellbinder.Services.Elysium

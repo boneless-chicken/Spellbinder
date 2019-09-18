@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Elysium.Models" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Spellbinder.Models\Spellbinder.Models.csproj" />
     <ProjectReference Include="..\Spellbinder.Services\Spellbinder.Services.csproj" />
   </ItemGroup>

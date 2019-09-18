@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Elysium.Models.User;
+using Microsoft.AspNetCore.Mvc;
 using Spellbinder.Business;
-using Spellbinder.Models;
 using System.Threading.Tasks;
 
 namespace Spellbinder.Controllers

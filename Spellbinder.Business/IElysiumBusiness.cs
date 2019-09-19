@@ -1,4 +1,5 @@
-﻿using Elysium.Models.User;
+﻿using Elysium.Models.Primary;
+using Elysium.Models.User;
 using Spellbinder.Models.Reponse;
 using System.Threading.Tasks;
 
@@ -8,5 +9,6 @@ namespace Spellbinder.Business
     {
         Task<LoginResponse> GetCharacters(string id);
         Task<User> CreateUser(User user);
+        Task<PrimaryStats> GetPrimaryStats(string id);
     }
 }

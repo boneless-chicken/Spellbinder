@@ -1,6 +1,8 @@
-﻿using Elysium.Models.User;
+﻿using Elysium.Models.Primary;
+using Elysium.Models.User;
 using Microsoft.AspNetCore.Mvc;
 using Spellbinder.Business;
+using Spellbinder.Models.Reponse;
 using System.Threading.Tasks;
 
 namespace Spellbinder.Controllers
@@ -16,13 +18,19 @@ namespace Spellbinder.Controllers
             _elysiumBusiness = elysiumBusiness;
         }
         
-        [HttpGet("/Characters/{uid}")]
+        [HttpGet("/Characters/{uid}"), ProducesResponseType(typeof(LoginResponse), 200)]
         public async Task<ActionResult> GetCharacters(string uid)
         {
             return Ok(await _elysiumBusiness.GetCharacters(uid));
         }
 
-        [HttpPost("/CreateUser")]
+        [HttpGet("/Characters/PrimaryStats/{id}"), ProducesResponseType(typeof(PrimaryStats), 200)]
+        public async Task<ActionResult> GetPrimaryStats(string id)
+        {
+            return Ok(await _elysiumBusiness.GetPrimaryStats(id));
+        }
+
+        [HttpPost("/CreateUser"), ProducesResponseType(typeof(User), 200)]
         public async Task<ActionResult> CreateUser(User user)
         {
             return Ok(await _elysiumBusiness.CreateUser(user));

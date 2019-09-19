@@ -1,4 +1,5 @@
-﻿using Elysium.Models.User;
+﻿using Elysium.Models.Primary;
+using Elysium.Models.User;
 using Spellbinder.Models.Reponse;
 using Spellbinder.Services.Elysium;
 using System.Threading.Tasks;
@@ -29,6 +30,12 @@ namespace Spellbinder.Business
         {
             var player = await _elysiumService.CreateUser(user);
             return player;
+        }
+
+        public async Task<PrimaryStats> GetPrimaryStats(string id)
+        {
+            var primaryStats = await _elysiumService.GetPrimaryStats(id);
+            return primaryStats;
         }
     }
 }

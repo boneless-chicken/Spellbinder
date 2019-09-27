@@ -2,6 +2,7 @@
 using Elysium.Models.User;
 using Spellbinder.Models.Reponse;
 using Spellbinder.Services.Elysium;
+using Spellbinder.Services.Exceptions;
 using System.Threading.Tasks;
 
 namespace Spellbinder.Business
@@ -21,7 +22,15 @@ namespace Spellbinder.Business
             var player = await _elysiumService.GetUser(id);
             loginResponse.User = player;
             foreach (string s in player.CharacterList) {
-                loginResponse.Characters.Add(await _elysiumService.GetCharacter(s));
+                try
+                {
+                    loginResponse.Characters.Add(await _elysiumService.GetCharacter(s));
+                }
+                catch (CharacterNotFound)
+                {
+                    // Log character not found
+                }
+                
             }
             return loginResponse;
         }
@@ -32,9 +41,9 @@ namespace Spellbinder.Business
             return player;
         }
 
-        public async Task<PrimaryStats> GetPrimaryStats(string id)
+        public async Task<CharacterStats> GetCharacterStats(string id)
         {
-            var primaryStats = await _elysiumService.GetPrimaryStats(id);
+            var primaryStats = await _elysiumService.GetCharacterStats(id);
             return primaryStats;
         }
     }

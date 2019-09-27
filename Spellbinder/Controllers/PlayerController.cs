@@ -1,8 +1,11 @@
 ﻿using Elysium.Models.Primary;
 using Elysium.Models.User;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Spellbinder.Business;
 using Spellbinder.Models.Reponse;
+using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Spellbinder.Controllers
@@ -21,19 +24,52 @@ namespace Spellbinder.Controllers
         [HttpGet("/Characters/{uid}"), ProducesResponseType(typeof(LoginResponse), 200)]
         public async Task<ActionResult> GetCharacters(string uid)
         {
-            return Ok(await _elysiumBusiness.GetCharacters(uid));
+            try
+            {
+                return Ok(await _elysiumBusiness.GetCharacters(uid));
+            }
+            catch (HttpRequestException)
+            {
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
         }
 
-        [HttpGet("/Characters/PrimaryStats/{id}"), ProducesResponseType(typeof(PrimaryStats), 200)]
-        public async Task<ActionResult> GetPrimaryStats(string id)
+        [HttpGet("/Characters/Stats/{id}"), ProducesResponseType(typeof(CharacterStats), 200)]
+        public async Task<ActionResult> GetCharacterStats(string id)
         {
-            return Ok(await _elysiumBusiness.GetPrimaryStats(id));
+            try
+            {
+                return Ok(await _elysiumBusiness.GetCharacterStats(id));
+            }
+            catch (HttpRequestException)
+            {
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
         }
 
         [HttpPost("/CreateUser"), ProducesResponseType(typeof(User), 200)]
         public async Task<ActionResult> CreateUser(User user)
         {
-            return Ok(await _elysiumBusiness.CreateUser(user));
+            try
+            {
+                return Ok(await _elysiumBusiness.CreateUser(user));
+            }
+            catch (HttpRequestException)
+            {
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
         }
     }
 }

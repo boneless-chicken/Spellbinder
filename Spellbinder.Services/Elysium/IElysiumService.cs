@@ -10,6 +10,6 @@ namespace Spellbinder.Services.Elysium
         Task<User> GetUser(string uid);
         Task<User> CreateUser(User user);
         Task<Character> GetCharacter(string id);
-        Task<PrimaryStats> GetPrimaryStats(string id);
+        Task<CharacterStats> GetCharacterStats(string id);
     }
 }

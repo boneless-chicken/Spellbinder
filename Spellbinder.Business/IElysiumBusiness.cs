@@ -9,6 +9,6 @@ namespace Spellbinder.Business
     {
         Task<LoginResponse> GetCharacters(string id);
         Task<User> CreateUser(User user);
-        Task<PrimaryStats> GetPrimaryStats(string id);
+        Task<CharacterStats> GetCharacterStats(string id);
     }
 }

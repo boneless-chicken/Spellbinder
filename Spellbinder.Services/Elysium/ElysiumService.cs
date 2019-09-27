@@ -4,6 +4,8 @@ using Elysium.Models.User;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Spellbinder.Models.Configuration;
+using Spellbinder.Services.Exceptions;
+using System;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,15 +42,27 @@ namespace Spellbinder.Services.Elysium
         public async Task<Character> GetCharacter(string id)
         {
             var uri = _elysiumConfig.BaseAddress + _elysiumConfig.Character + "/" + id;
-            var responseString = await _httpClient.GetStringAsync(uri);
-            return JsonConvert.DeserializeObject<Character>(responseString);
+            var response = await _httpClient.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                var stringResponse = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<Character>(stringResponse);
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                throw new CharacterNotFound("A character was not found");
+            }
+            else
+            {
+                throw new Exception("Error while calling characters service");
+            }
         }
 
-        public async Task<PrimaryStats> GetPrimaryStats(string id)
+        public async Task<CharacterStats> GetCharacterStats(string id)
         {
-            var uri = _elysiumConfig.BaseAddress + _elysiumConfig.PrimaryStats + "/" + id;
+            var uri = _elysiumConfig.BaseAddress + _elysiumConfig.CharacterStats + "/" + id;
             var responseString = await _httpClient.GetStringAsync(uri);
-            return JsonConvert.DeserializeObject<PrimaryStats>(responseString);
+            return JsonConvert.DeserializeObject<CharacterStats>(responseString);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Elysium.Models.Player;
 using Elysium.Models.Primary;
+using Elysium.Models.Spell;
 using Elysium.Models.User;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -58,11 +59,25 @@ namespace Spellbinder.Services.Elysium
             }
         }
 
+        public async Task<CharacterInfo> GetCharacterInfo(string id)
+        {
+            var uri = _elysiumConfig.BaseAddress + _elysiumConfig.CharacterInfo + "/" + id;
+            var responseString = await _httpClient.GetStringAsync(uri);
+            return JsonConvert.DeserializeObject<CharacterInfo>(responseString);
+        }
+
         public async Task<CharacterStats> GetCharacterStats(string id)
         {
             var uri = _elysiumConfig.BaseAddress + _elysiumConfig.CharacterStats + "/" + id;
             var responseString = await _httpClient.GetStringAsync(uri);
             return JsonConvert.DeserializeObject<CharacterStats>(responseString);
+        }
+
+        public async Task<CharacterSpells> GetCharacterSpells(string id)
+        {
+            var uri = _elysiumConfig.BaseAddress + _elysiumConfig.CharacterSpells + "/" + id;
+            var responseString = await _httpClient.GetStringAsync(uri);
+            return JsonConvert.DeserializeObject<CharacterSpells>(responseString);
         }
     }
 }

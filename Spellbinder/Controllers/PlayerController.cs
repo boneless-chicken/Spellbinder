@@ -3,8 +3,10 @@ using Elysium.Models.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Spellbinder.Business;
+using Spellbinder.Models;
 using Spellbinder.Models.Reponse;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -20,7 +22,24 @@ namespace Spellbinder.Controllers
         {
             _elysiumBusiness = elysiumBusiness;
         }
-        
+
+        [HttpGet("/User/{uid}/CharactersData")]
+        public async Task<ActionResult> GetUserCharactersData(string uid)
+        {
+            try
+            {
+                return Ok(await _elysiumBusiness.GetUserCharactersData(uid));
+            }
+            catch (HttpRequestException)
+            {
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
+        }
+
         [HttpGet("/Characters/{uid}"), ProducesResponseType(typeof(LoginResponse), 200)]
         public async Task<ActionResult> GetCharacters(string uid)
         {

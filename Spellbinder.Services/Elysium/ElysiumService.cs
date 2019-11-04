@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using Spellbinder.Models.Configuration;
 using Spellbinder.Services.Exceptions;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -78,6 +79,20 @@ namespace Spellbinder.Services.Elysium
             var uri = _elysiumConfig.BaseAddress + _elysiumConfig.CharacterSpells + "/" + id;
             var responseString = await _httpClient.GetStringAsync(uri);
             return JsonConvert.DeserializeObject<CharacterSpells>(responseString);
+        }
+
+        public async Task<Spell> GetSpell(string id)
+        {
+            var uri = _elysiumConfig.BaseAddress + _elysiumConfig.Spell + "/" + id;
+            var responseString = await _httpClient.GetStringAsync(uri);
+            return JsonConvert.DeserializeObject<Spell>(responseString);
+        }
+
+        public async Task<IEnumerable<Spell>> GetSpell()
+        {
+            var uri = _elysiumConfig.BaseAddress + _elysiumConfig.Spell;
+            var responseString = await _httpClient.GetStringAsync(uri);
+            return JsonConvert.DeserializeObject<IEnumerable<Spell>>(responseString);
         }
     }
 }

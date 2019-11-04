@@ -1,6 +1,8 @@
 ﻿using Elysium.Models.Primary;
+using Elysium.Models.Spell;
 using Elysium.Models.User;
 using Spellbinder.Models.Reponse;
+using Spellbinder.Models.Response;
 using Spellbinder.Services.Elysium;
 using Spellbinder.Services.Exceptions;
 using System.Collections.Generic;
@@ -60,6 +62,7 @@ namespace Spellbinder.Business
                     var characterInfo = await _elysiumService.GetCharacterInfo(characterData.CharacterInfo);
                     var characterStats = await _elysiumService.GetCharacterStats(characterData.CharacterStats);
                     var characterSpells = await _elysiumService.GetCharacterSpells(characterData.CharacterSpells);
+                    
                     characters.Add(new Models.Character
                     {
                         Id = characterData.Id,
@@ -79,6 +82,26 @@ namespace Spellbinder.Business
 
             }
             return characters;
+        }
+
+        public async Task<GameData> GetGameData()
+        {
+            GameData gameData = new GameData
+            {
+                Spells = await _elysiumService.GetSpell()
+            };
+            return gameData;
+        }
+
+        private async Task<List<Spell>> GetSpellsFromIds(IEnumerable<string> ids)
+        {
+            List<Spell> spells = new List<Spell>();
+            foreach (string spellId in ids)
+            {
+                var spell = await _elysiumService.GetSpell(spellId);
+                spells.Add(spell);
+            }
+            return spells;
         }
     }
 }

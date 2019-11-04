@@ -1,9 +1,6 @@
 ﻿using Elysium.Models.Player;
 using Elysium.Models.Primary;
 using Elysium.Models.Spell;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Spellbinder.Models
 {

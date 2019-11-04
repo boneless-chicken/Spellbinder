@@ -2,6 +2,7 @@
 using Elysium.Models.Primary;
 using Elysium.Models.Spell;
 using Elysium.Models.User;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Spellbinder.Services.Elysium
@@ -14,5 +15,7 @@ namespace Spellbinder.Services.Elysium
         Task<CharacterInfo> GetCharacterInfo(string id);
         Task<CharacterStats> GetCharacterStats(string id);
         Task<CharacterSpells> GetCharacterSpells(string id);
+        Task<Spell> GetSpell(string id);
+        Task<IEnumerable<Spell>> GetSpell();
     }
 }

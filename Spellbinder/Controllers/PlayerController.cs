@@ -1,12 +1,8 @@
-﻿using Elysium.Models.Primary;
-using Elysium.Models.User;
+﻿using Elysium.Models.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Spellbinder.Business;
-using Spellbinder.Models;
-using Spellbinder.Models.Reponse;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 

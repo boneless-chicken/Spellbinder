@@ -1,4 +1,5 @@
-﻿using Elysium.Models.Player;
+﻿using Elysium.Models.Equipment;
+using Elysium.Models.Player;
 using Elysium.Models.Primary;
 using Elysium.Models.Spell;
 
@@ -14,5 +15,6 @@ namespace Spellbinder.Models
         public string Inventory { get; set; }
         public CharacterSpells CharacterSpells { get; set; }
         public string Backgrounds { get; set; }
+        public CharacterEquipment CharacterEquipment { get; set; }
     }
 }

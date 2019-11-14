@@ -16,6 +16,9 @@ namespace Spellbinder.Models.Configuration
         public string CharacterStats { get; set; }
         public string CharacterInfo { get; set; }
         public string CharacterSpells { get; set; }
+        public string CharacterEquipment { get; set; }
         public string Race { get; set; }
+        public string Armor { get; set; }
+        public string Weapon { get; set; }
     }
 }

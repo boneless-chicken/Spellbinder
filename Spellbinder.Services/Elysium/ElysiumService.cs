@@ -1,4 +1,5 @@
-﻿using Elysium.Models.Player;
+﻿using Elysium.Models.Equipment;
+using Elysium.Models.Player;
 using Elysium.Models.Primary;
 using Elysium.Models.Spell;
 using Elysium.Models.User;
@@ -81,6 +82,13 @@ namespace Spellbinder.Services.Elysium
             return JsonConvert.DeserializeObject<CharacterSpells>(responseString);
         }
 
+        public async Task<CharacterEquipment> GetCharacterEquipment(string id)
+        {
+            var uri = _elysiumConfig.BaseAddress + _elysiumConfig.CharacterEquipment + "/" + id;
+            var responseString = await _httpClient.GetStringAsync(uri);
+            return JsonConvert.DeserializeObject<CharacterEquipment>(responseString);
+        }
+
         public async Task<Spell> GetSpell(string id)
         {
             var uri = _elysiumConfig.BaseAddress + _elysiumConfig.Spell + "/" + id;
@@ -93,6 +101,34 @@ namespace Spellbinder.Services.Elysium
             var uri = _elysiumConfig.BaseAddress + _elysiumConfig.Spell;
             var responseString = await _httpClient.GetStringAsync(uri);
             return JsonConvert.DeserializeObject<IEnumerable<Spell>>(responseString);
+        }
+
+        public async Task<Weapon> GetWeapon(string id)
+        {
+            var uri = _elysiumConfig.BaseAddress + _elysiumConfig.Weapon + "/" + id;
+            var responseString = await _httpClient.GetStringAsync(uri);
+            return JsonConvert.DeserializeObject<Weapon>(responseString);
+        }
+
+        public async Task<IEnumerable<Weapon>> GetWeapon()
+        {
+            var uri = _elysiumConfig.BaseAddress + _elysiumConfig.Weapon;
+            var responseString = await _httpClient.GetStringAsync(uri);
+            return JsonConvert.DeserializeObject<IEnumerable<Weapon>>(responseString);
+        }
+
+        public async Task<Armor> GetArmor(string id)
+        {
+            var uri = _elysiumConfig.BaseAddress + _elysiumConfig.Armor + "/" + id;
+            var responseString = await _httpClient.GetStringAsync(uri);
+            return JsonConvert.DeserializeObject<Armor>(responseString);
+        }
+
+        public async Task<IEnumerable<Armor>> GetArmor()
+        {
+            var uri = _elysiumConfig.BaseAddress + _elysiumConfig.Armor;
+            var responseString = await _httpClient.GetStringAsync(uri);
+            return JsonConvert.DeserializeObject<IEnumerable<Armor>>(responseString);
         }
     }
 }

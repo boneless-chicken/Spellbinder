@@ -1,5 +1,4 @@
 ﻿using Elysium.Models.Primary;
-using Elysium.Models.Spell;
 using Elysium.Models.User;
 using Spellbinder.Models.Reponse;
 using Spellbinder.Models.Response;
@@ -62,6 +61,7 @@ namespace Spellbinder.Business
                     var characterInfo = await _elysiumService.GetCharacterInfo(characterData.CharacterInfo);
                     var characterStats = await _elysiumService.GetCharacterStats(characterData.CharacterStats);
                     var characterSpells = await _elysiumService.GetCharacterSpells(characterData.CharacterSpells);
+                    var characterEquipment = await _elysiumService.GetCharacterEquipment(characterData.CharacterEquipment);
                     
                     characters.Add(new Models.Character
                     {
@@ -72,14 +72,14 @@ namespace Spellbinder.Business
                         Mastery = "",
                         Inventory = "",
                         CharacterSpells = characterSpells,
-                        Backgrounds = ""
+                        Backgrounds = "",
+                        CharacterEquipment = characterEquipment
                     });
                 }
                 catch (CharacterNotFound)
                 {
                     // Log character not found
                 }
-
             }
             return characters;
         }
@@ -88,20 +88,11 @@ namespace Spellbinder.Business
         {
             GameData gameData = new GameData
             {
-                Spells = await _elysiumService.GetSpell()
+                Spells = await _elysiumService.GetSpell(),
+                Weapons = await _elysiumService.GetWeapon(),
+                Armors = await _elysiumService.GetArmor()
             };
             return gameData;
-        }
-
-        private async Task<List<Spell>> GetSpellsFromIds(IEnumerable<string> ids)
-        {
-            List<Spell> spells = new List<Spell>();
-            foreach (string spellId in ids)
-            {
-                var spell = await _elysiumService.GetSpell(spellId);
-                spells.Add(spell);
-            }
-            return spells;
         }
     }
 }

@@ -14,6 +14,7 @@ namespace Spellbinder
 {
     public class Startup
     {
+        readonly string MyCorsConfig = "CorsSpellbinderConfig";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -55,6 +56,16 @@ namespace Spellbinder
             services.AddHttpClient<IElysiumService, ElysiumService>();
             services.AddTransient<IElysiumBusiness, ElysiumBusiness>();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyCorsConfig,
+                builder =>
+                {
+                    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                });
+            });
+
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -76,6 +87,8 @@ namespace Spellbinder
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseCors(MyCorsConfig);
 
             app.UseHttpsRedirection();
             app.UseMvc();

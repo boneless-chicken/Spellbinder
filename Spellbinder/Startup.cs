@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Spellbinder.Business;
 using Spellbinder.Models.Configuration;
 using Spellbinder.Services.Elysium;
@@ -27,9 +27,9 @@ namespace Spellbinder
             // Config swagger
             services.AddSwaggerGen(swagger =>
             {
-                var contact = new Microsoft.OpenApi.Models.OpenApiContact() { Name = SwaggerConfiguration.ContactName, Email = SwaggerConfiguration.ContactUrl };
+                var contact = new Contact() { Name = SwaggerConfiguration.ContactName, Email = SwaggerConfiguration.ContactUrl };
 
-                swagger.SwaggerDoc(SwaggerConfiguration.DocName, new Microsoft.OpenApi.Models.OpenApiInfo
+                swagger.SwaggerDoc(SwaggerConfiguration.DocName, new Info
                 {
                     Title = SwaggerConfiguration.DocInfoTitle,
                     Version = SwaggerConfiguration.DocInfoVersion,
@@ -51,17 +51,15 @@ namespace Spellbinder
             services.AddOptions();
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
-            services.AddHttpClient<ElysiumService>();
-
             services.AddTransient<IElysiumService, ElysiumService>();
+            services.AddHttpClient<IElysiumService, ElysiumService>();
             services.AddTransient<IElysiumBusiness, ElysiumBusiness>();
-            
-            services.AddControllers();
-            services.AddRazorPages();
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -80,11 +78,7 @@ namespace Spellbinder
             }
 
             app.UseHttpsRedirection();
-            app.UseRouting();
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapDefaultControllerRoute();
-            });
+            app.UseMvc();
         }
     }
 }

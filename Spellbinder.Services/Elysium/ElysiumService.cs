@@ -20,9 +20,9 @@ namespace Spellbinder.Services.Elysium
         private readonly HttpClient _httpClient;
         private readonly ElysiumConfig _elysiumConfig;
 
-        public ElysiumService(IHttpClientFactory httpClientFactory, IOptions<AppSettings> configuration)
+        public ElysiumService(HttpClient httpClient, IOptions<AppSettings> configuration)
         {
-            _httpClient = httpClientFactory.CreateClient("ElysiumService");
+            _httpClient = httpClient;
             _elysiumConfig = configuration.Value.ElysiumConfig;
         }
 
